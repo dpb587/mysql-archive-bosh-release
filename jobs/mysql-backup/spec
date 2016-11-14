@@ -1,0 +1,32 @@
+---
+name: "mysql-backup"
+templates:
+  bin/pre-start.erb: "bin/pre-start"
+  bin/run.erb: "bin/run"
+  config/mc/config.json.erb: "config/mc/config.json"
+  config/gpg.pub.erb: "config/gpg.pub"
+  config/mysql_ca.pem.erb: "config/mysql_ca.pem"
+  my.cnf.erb: ".my.cnf"
+consumes:
+  - name: "mysql"
+    type: "db"
+  - name: "storage"
+    type: "s3"
+properties:
+  database:
+    description: "Database name to backup."
+  file_prefix:
+    description: "A name for the backup (file prefix to timestamp)."
+    default: "backup-"
+  storage_bucket:
+    description: "Storage bucket name"
+  storage_prefix:
+    description: "A directory prefix for object storage."
+    default: ""
+  public_key:
+    description: "GPG public key to encrypt backup files."
+  tmpdir:
+    description: "Temporary directory when exporting, compressing, and encrypting"
+    default: "/var/vcap/data"
+packages:
+  - "mysql-archive"

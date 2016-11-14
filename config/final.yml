@@ -1,0 +1,6 @@
+---
+name: "mysql-archive"
+blobstore:
+  provider: "s3"
+  options:
+    bucket_name: "dpb587-mysql-archive-bosh-release-us-east-1"

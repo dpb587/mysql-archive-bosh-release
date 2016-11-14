@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -eu
+
+REM() { /bin/echo $( date -u +"%Y-%m-%dT%H:%M:%SZ" ) "$@"; }
+
+export HOME=/var/vcap/jobs/mysql-backup
+export PATH="/var/vcap/packages/mysql-archive/bin:$PATH"
+export TMPDIR="<%= p('tmpdir') %>"
+
+TS=$( date -u +"%Y%m%dT%H%M%SZ" )
+FILEDIR="$TMPDIR/mysql-backup/"
+FILENAME="<%= p('file_prefix') %>$TS.sql"
+
+###
+REM 'starting' $FILENAME
+###
+
+mkdir -p "$FILEDIR"
+chmod 700 "$FILEDIR"
+
+###
+REM 'exporting'
+###
+
+mysqldump \
+  --default-character-set=utf8 \
+  --result-file "$FILEDIR/$FILENAME" \
+  --single-transaction \
+  "<%= p('database') %>"
+
+###
+REM 'compressing'
+###
+
+xz "$FILEDIR/$FILENAME"
+FILENAME="$FILENAME.xz"
+
+<% if_p('public_key') do %>
+
+  ###
+  REM 'encrypting'
+  ###
+
+  export GNUPGHOME="$HOME/.gpg"
+  RECIPIENT=$( gpg --batch --with-colons "$HOME/config/gpg.pub" | head -n1 | cut -d: -f5 )
+
+  gpg --trust-model always --recipient "$RECIPIENT" --encrypt "$FILEDIR/$FILENAME"
+  rm "$FILEDIR/$FILENAME"
+
+  FILENAME="$FILENAME.gpg"
+
+<% end %>
+
+###
+REM 'uploading'
+###
+
+mc --quiet --json -C /var/vcap/jobs/mysql-backup/config/mc cp \
+  "$FILEDIR/$FILENAME" \
+  "storage/<%= p('storage_bucket') %>/<%= p('storage_prefix') %>$FILENAME"
+
+###
+REM 'cleaning'
+###
+
+rm "$FILEDIR/$FILENAME"
+rm -fr "$HOME/.mc"
+
+###
+REM 'finished' $FILENAME
+###

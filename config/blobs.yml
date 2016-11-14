@@ -1,0 +1,9 @@
+golang/go-linux-amd64.tar.gz:
+  size: 82565628
+  sha: ead40e884ad4d6512bcf7b3c7420dd7fa4a96140
+mariadb/mariadb.tar.gz:
+  size: 61187451
+  sha: 345a108fd92474abc760ca803c121f76c8abef3c
+mc/mc.tar.gz:
+  size: 824887
+  sha: fd6677738c4cd39c0b9a2328516e69a9685c481d

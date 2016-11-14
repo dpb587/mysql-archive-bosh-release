@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -eu
+
+<% if_p('private_key') do %>
+
+  export HOME=/var/vcap/jobs/mysql-restore
+  export GNUPGHOME="$HOME/.gpg"
+
+  [ ! -e "$GNUPGHOME" ] || rm -fr "$GNUPGHOME"
+  mkdir -p "$GNUPGHOME"
+  chmod -R 700 "$GNUPGHOME"
+
+  gpg --import "$HOME/config/gpg.pem"
+
+<% end %>

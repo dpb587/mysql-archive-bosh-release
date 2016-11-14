@@ -1,0 +1,11 @@
+{
+	"version": "8",
+	"hosts": {
+		"storage": {<% s = link('storage') %>
+			"url": "<%= s.p('scheme') %>://<%= s.instances[0].address %><%= ((s.p('scheme') == 'https' && s.p('port') == 443) || (s.p('scheme') == 'http' && s.p('port') == 80)) ? '' : (":#{s.p('port')}") %>",
+			"accessKey": "<%= s.p('access_key') %>",
+			"secretKey": "<%= s.p('secret_key') %>",
+			"api": "<%= s.p('api') %>"
+		}
+	}
+}

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -eux
+
+(## golang
+  tar -C golang --strip-components 1 -xzf golang/go-linux-amd64.tar.gz
+)
+
+(## mc
+  mkdir -p go/src/github.com/minio/mc
+  tar -C go/src/github.com/minio/mc --strip-components 1 -xzf mc/*.tar.gz
+
+  export GOPATH=$BOSH_COMPILE_TARGET/go
+  export GOROOT=$BOSH_COMPILE_TARGET/golang
+  export PATH="$GOROOT/bin:$PATH"
+
+  cd go/src/github.com/minio/mc
+  go build main.go
+
+  mkdir $BOSH_INSTALL_TARGET/bin
+  mv main $BOSH_INSTALL_TARGET/bin/mc
+)
+
+(## mariadb
+  tar -xzf mariadb/*.tar.gz
+
+  cd mariadb-*
+
+  BUILD/autorun.sh
+  ./configure \
+    --prefix=$BOSH_INSTALL_TARGET
+  make
+  make install
+)

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -eu
+
+if [ -e /etc/cron.d/50-mysql-archive--mysql-backup-scheduler--crontab ]; then
+  unlink /etc/cron.d/50-mysql-archive--mysql-backup-scheduler--crontab
+  touch /etc/cron.d
+fi
+
+echo 0
+exit

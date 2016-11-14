@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -eu
+
+<% if_p('public_key') do %>
+
+  export HOME=/var/vcap/jobs/mysql-backup
+  export GNUPGHOME="$HOME/.gpg"
+
+  [ ! -e "$GNUPGHOME" ] || rm -fr "$GNUPGHOME"
+  mkdir -p "$GNUPGHOME"
+  chmod -R 700 "$GNUPGHOME"
+
+  gpg --import "$HOME/config/gpg.pub"
+
+<% end %>

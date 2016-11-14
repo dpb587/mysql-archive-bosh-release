@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -eu
+
+mkdir -p /var/vcap/sys/log/mysql-backup-scheduler
+
+ln -s /var/vcap/jobs/mysql-backup-scheduler/config/crontab /etc/cron.d/50-mysql-archive--mysql-backup-scheduler--crontab
+touch /etc/cron.d

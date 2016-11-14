@@ -1,0 +1,9 @@
+[client]
+; <% m = link('mysql') %>
+port = "<%= m.p('port') %>"
+host = "<%= m.instances[0].address %>"
+user = "<%= m.p('user') %>"
+password = "<%= m.p('password') %>"
+<% m.if_p('ca') do %>
+ssl_ca = "/var/vcap/jobs/mysql-backup/config/mysql_ca.pem"
+<% end %>

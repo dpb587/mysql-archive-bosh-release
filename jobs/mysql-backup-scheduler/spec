@@ -1,0 +1,9 @@
+---
+name: "mysql-backup-scheduler"
+templates:
+  bin/drain.erb: "bin/drain"
+  bin/pre-start.erb: "bin/pre-start"
+  config/crontab.erb: "config/crontab"
+properties:
+  schedule:
+    description: "A crontab-formatted schedule for when to execute a backup."

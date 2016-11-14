@@ -1,0 +1,35 @@
+---
+name: "mysql-restore"
+templates:
+  bin/pre-start.erb: "bin/pre-start"
+  bin/run.erb: "bin/run"
+  config/mc/config.json.erb: "config/mc/config.json"
+  config/gpg.pem.erb: "config/gpg.pem"
+  config/mysql_ca.pem.erb: "config/mysql_ca.pem"
+  my.cnf.erb: ".my.cnf"
+consumes:
+  - name: "mysql"
+    type: "db"
+  - name: "storage"
+    type: "s3"
+properties:
+  database:
+    description: "Database name to restore."
+  create_database:
+    description: "Forcefully create a fresh database."
+    default: true
+  file_prefix:
+    description: "A name for the backup (file prefix)."
+    default: "backup-"
+  storage_bucket:
+    description: "Storage bucket name"
+  storage_prefix:
+    description: "A directory prefix for object storage."
+    default: ""
+  private_key:
+    description: "GPG private key to decrypt backup files."
+  tmpdir:
+    description: "Temporary directory when decrypting, decompressing, and importing"
+    default: "/var/vcap/data"
+packages:
+  - "mysql-archive"

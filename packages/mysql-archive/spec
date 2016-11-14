@@ -1,0 +1,6 @@
+---
+name: "mysql-archive"
+files:
+  - "golang/*"
+  - "mariadb/*"
+  - "mc/*"
