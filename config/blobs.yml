@@ -1,9 +1,12 @@
 golang/go-linux-amd64.tar.gz:
   size: 82565628
+  object_id: 679bf7ff-223d-4046-42c0-7405e9d14154
   sha: ead40e884ad4d6512bcf7b3c7420dd7fa4a96140
 mariadb/mariadb.tar.gz:
   size: 61187451
+  object_id: 7f7eabdb-4c52-4fb1-6741-fb0a5efe2185
   sha: 345a108fd92474abc760ca803c121f76c8abef3c
 mc/mc.tar.gz:
   size: 824887
+  object_id: ac2f3e6b-1f33-431a-4a9b-b1434e13b15d
   sha: fd6677738c4cd39c0b9a2328516e69a9685c481d
