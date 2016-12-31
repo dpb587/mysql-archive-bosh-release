@@ -1,0 +1,27 @@
+name: mysql-archive
+version: 1.0.1
+commit_hash: 4c7a28c
+uncommitted_changes: false
+jobs:
+- name: mysql-backup
+  version: 7340294eb37ba38d18475fd7e2473150ed82e8d4
+  fingerprint: 7340294eb37ba38d18475fd7e2473150ed82e8d4
+  sha1: c17dc313bbaa37eb0f08b836b91d9e2fdb6541ee
+- name: mysql-backup-scheduler
+  version: e9ef12fb4ad1c92e39e4e5846884cf11ad82fd74
+  fingerprint: e9ef12fb4ad1c92e39e4e5846884cf11ad82fd74
+  sha1: f371648141cdd029eca1770141353a9919d506a0
+- name: mysql-restore
+  version: ace88f5b65540c41d3fff6b2051bd921d83f2064
+  fingerprint: ace88f5b65540c41d3fff6b2051bd921d83f2064
+  sha1: 517a49b20d8a9cea9ddff9b1e999fe7b4f615dac
+packages:
+- name: mysql-archive
+  version: 6a79481a00367acb1b35a588e58dc605fab34494
+  fingerprint: 6a79481a00367acb1b35a588e58dc605fab34494
+  sha1: 502771a02fed2cdaad4e53879733de114ea91913
+  dependencies: []
+license:
+  version: c0c5442fe8f80c0ab8aee1f0beae1f4a0d041877
+  fingerprint: c0c5442fe8f80c0ab8aee1f0beae1f4a0d041877
+  sha1: 00654756a3726b72eaea975af70bb99da04d93bd
