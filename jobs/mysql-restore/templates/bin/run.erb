@@ -9,7 +9,7 @@ export PATH="/var/vcap/packages/mysql-archive/bin:$PATH"
 export TMPDIR="<%= p('tmpdir') %>"
 
 TS=$( date -u +"%Y%m%dT%H%M%SZ" )
-FILEDIR="$TMPDIR/mysql-backup/"
+FILEDIR="$TMPDIR/mysql-restore/"
 
 ###
 REM 'starting'
@@ -23,8 +23,9 @@ REM 'finding file'
 ###
 
 FILENAME=$(
-  mc --quiet --json -C /var/vcap/jobs/mysql-backup/config/mc ls \
+  mc --quiet --json -C /var/vcap/jobs/mysql-restore/config/mc ls \
     "storage/<%= p('storage_bucket') %>/<%= p('storage_prefix') %>" \
+    | grep '"type":"file"' \
     | awk -F '"key":"' '{ print $2 }' \
     | cut -d '"' -f1 \
     | sort \
@@ -41,7 +42,7 @@ fi
 REM 'downloading' "$FILENAME"
 ###
 
-mc --quiet --json -C /var/vcap/jobs/mysql-backup/config/mc cp \
+mc --quiet --json -C /var/vcap/jobs/mysql-restore/config/mc cp \
   "storage/<%= p('storage_bucket') %>/<%= p('storage_prefix') %>$FILENAME" \
   "$FILEDIR/$FILENAME"
 
